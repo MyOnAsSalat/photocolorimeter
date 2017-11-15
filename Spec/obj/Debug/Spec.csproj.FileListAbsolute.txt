@@ -1,0 +1,12 @@
+C:\Users\masterpc\Documents\Visual Studio 2017\Projects\Spec\Spec\bin\Debug\Spec.exe.config
+C:\Users\masterpc\Documents\Visual Studio 2017\Projects\Spec\Spec\bin\Debug\Spec.exe
+C:\Users\masterpc\Documents\Visual Studio 2017\Projects\Spec\Spec\bin\Debug\Spec.pdb
+C:\Users\masterpc\Documents\Visual Studio 2017\Projects\Spec\Spec\obj\Debug\Spec.csprojResolveAssemblyReference.cache
+C:\Users\masterpc\Documents\Visual Studio 2017\Projects\Spec\Spec\obj\Debug\Spec.Form1.resources
+C:\Users\masterpc\Documents\Visual Studio 2017\Projects\Spec\Spec\obj\Debug\Spec.Properties.Resources.resources
+C:\Users\masterpc\Documents\Visual Studio 2017\Projects\Spec\Spec\obj\Debug\Spec.csproj.GenerateResource.Cache
+C:\Users\masterpc\Documents\Visual Studio 2017\Projects\Spec\Spec\obj\Debug\Spec.csproj.CoreCompileInputs.cache
+C:\Users\masterpc\Documents\Visual Studio 2017\Projects\Spec\Spec\obj\Debug\Spec.exe
+C:\Users\masterpc\Documents\Visual Studio 2017\Projects\Spec\Spec\obj\Debug\Spec.pdb
+C:\Users\masterpc\Documents\Visual Studio 2017\Projects\Spec\Spec\bin\Debug\unvell.ReoGrid.dll
+C:\Users\masterpc\Documents\Visual Studio 2017\Projects\Spec\Spec\bin\Debug\unvell.ReoGrid.xml
