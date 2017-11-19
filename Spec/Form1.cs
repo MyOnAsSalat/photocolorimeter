@@ -47,6 +47,7 @@ namespace Spec
                     if (Convert.ToDouble(AlphaTextBox.Text) == 0) { throw new Exception("Альфа не может быть = 0"); }
                     a = 1d / Convert.ToDouble(AlphaTextBox.Text);
                     shift = Convert.ToInt32(ShiftTextBox.Text);
+                    timer.Interval = interval;
                 }
                 catch (Exception exc)
                 {
