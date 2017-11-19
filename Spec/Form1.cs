@@ -73,12 +73,13 @@ namespace Spec
             Table.CurrentWorksheet.RowCount = Table.CurrentWorksheet.RowCount + 1;
             Table.CurrentWorksheet.Cells["A" + i].DataFormat = CellDataFormatFlag.DateTime;
             Table.CurrentWorksheet.Cells["A" + i].Data = stopWatch.Elapsed.ToString("hh\\:mm\\:ss\\:ff");
-            Table.CurrentWorksheet.Cells["B" + i].Data = stopWatch.ElapsedMilliseconds / 1000;
-            double cur = Math.Round(Function(), 4)+shift;
-            Graph.Series[0].Points.AddXY(i, cur);
+            double time = ((double)stopWatch.ElapsedMilliseconds) / 1000;
+            Table.CurrentWorksheet.Cells["B" + i].Data = time;
+            double cur = Math.Round(Function(), 3)+shift;
+            Graph.Series[0].Points.AddXY(time, cur);
             Table.CurrentWorksheet.Cells["C" + i].Data = cur;
-            buf = Math.Round((1 - a) * buf + a * cur, 4);
-            Graph.Series[1].Points.AddXY(i, buf);
+            buf = Math.Round((1 - a) * buf + a * cur, 3);
+            Graph.Series[1].Points.AddXY(time, buf);
             Table.CurrentWorksheet.Cells["D" + i].Data = buf;
             stopWatch.Start();           
         }
