@@ -12,34 +12,35 @@ using System.Threading;
 using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using unvell.ReoGrid.DataFormat;
+using System.IO.Ports;
 
 namespace Spec
 {
     public partial class Form1 : Form
-    {
-        
-        Boolean enable = false;
+    {       
         Stopwatch stopWatch = new Stopwatch();
         int i = 0;
         public Form1()
         {
             InitializeComponent();
-            Table.CurrentWorksheet.ColumnCount = 3;
-            Table.CurrentWorksheet.ColumnHeaders[0].Width = 80;
-            Table.CurrentWorksheet.ColumnHeaders[1].Width = 80;
-            Table.CurrentWorksheet.ColumnHeaders[2].Width = 80;
+            Table.CurrentWorksheet.ColumnCount = 4;
+            Table.CurrentWorksheet.ColumnHeaders[0].Width = 100;
+            Table.CurrentWorksheet.ColumnHeaders[1].Width = 100;
+            Table.CurrentWorksheet.ColumnHeaders[2].Width = 100;
+            Table.CurrentWorksheet.ColumnHeaders[3].Width = 100;
             Table.CurrentWorksheet.RowCount = 1;
-            Table.CurrentWorksheet.Name = "Graph";
-            
-            stopWatch.Start();
+            Table.CurrentWorksheet.Name = "Graph";                      
         }
+        bool enable = false;
         double a = 0.5d;
         int interval = 1000;
         int shift = 0;
         private void StartStopToolButton_Click(object sender, EventArgs e)
         {
+            
             if (!enable)
             {
+                if (!COMPORT.IsOpen) { MessageBox.Show("Выберете порт!"); return; }
                 try
                 {
                     interval = Convert.ToInt32(IntervalTextBox.Text);
@@ -49,16 +50,21 @@ namespace Spec
                 }
                 catch (Exception exc)
                 {
-                    MessageBox.Show("Введены неверные данные:"+ "\n" + exc.ToString().Replace("System.Exception: ",""), "Ошибка:");
+                    MessageBox.Show("Введены неверные данные:" + "\n" + exc.ToString().Replace("System.Exception: ", ""), "Ошибка:");
                     return;
                 }
-                buf = Function(i);
-            }
-            enable = !enable;
-            timer.Enabled = enable;
-            timer.Interval = interval;
+                enable = true;
+                
+                buf = Function();
+                timer.Start();
+            } else { stop(); }
             StartStopToolButton.Text = (enable) ? "Стоп" : "Старт";
-           
+        }
+        private void stop()
+        {
+            enable = false;
+            StartStopToolButton.Text = (enable) ? "Стоп" : "Старт";
+            timer.Stop();          
         }
         double buf = 0;
         private void timer_Tick(object sender, EventArgs e)
@@ -66,23 +72,23 @@ namespace Spec
             i++;
             Table.CurrentWorksheet.RowCount = Table.CurrentWorksheet.RowCount + 1;
             Table.CurrentWorksheet.Cells["A" + i].DataFormat = CellDataFormatFlag.DateTime;
-            
             Table.CurrentWorksheet.Cells["A" + i].Data = stopWatch.Elapsed.ToString("hh\\:mm\\:ss\\:ff");
-            double cur = Function(i);
+            Table.CurrentWorksheet.Cells["B" + i].Data = stopWatch.ElapsedMilliseconds / 1000;
+            double cur = Math.Round(Function(), 4)+shift;
             Graph.Series[0].Points.AddXY(i, cur);
-            Table.CurrentWorksheet.Cells["B" + i].Data = cur;
-            buf = (1 - a) * buf + a * cur;
+            Table.CurrentWorksheet.Cells["C" + i].Data = cur;
+            buf = Math.Round((1 - a) * buf + a * cur, 4);
             Graph.Series[1].Points.AddXY(i, buf);
-            Table.CurrentWorksheet.Cells["C" + i].Data = buf;
-
-            stopWatch.Start();
-            
+            Table.CurrentWorksheet.Cells["D" + i].Data = buf;
+            stopWatch.Start();           
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private double Function(int i)
-        {         
-            return Math.Sin(((double)i) / 5) + shift;
+        private double Function()
+        {
+            COMPORT.Write("R");
+            string msg = COMPORT.ReadLine().Replace(".",",");
+            return Convert.ToDouble(msg);           
         }
 
         private void FileSaveToolButton_Click(object sender, EventArgs e)
@@ -97,19 +103,83 @@ namespace Spec
                 
             } catch (Exception exc) { MessageBox.Show(exc.ToString(), "Ошибка:"); }
         }
-
         private void ResetToolButton_Click(object sender, EventArgs e)
         {
+            DialogResult result = MessageBox.Show("Вы уверены что хотите сбросить данные?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (result == DialogResult.No) { return; }
             i = 0;
+            stop();
+            StartStopToolButton.Text = "Старт";
             Table.CurrentWorksheet.RowCount = 1;
             Table.CurrentWorksheet.Cells["A" + 1].Data = null;
             Table.CurrentWorksheet.Cells["B" + 1].Data = null;
             Table.CurrentWorksheet.Cells["C" + 1].Data = null;
+            Table.CurrentWorksheet.Cells["D" + 1].Data = null;
             Graph.Series[0].Points.Clear();
             Graph.Series[1].Points.Clear();
             stopWatch = new Stopwatch();
         }
+        private void PortSetToolButton_Click(object sender, EventArgs e)
+        {
+            COMPORT.Close();
+            COMPORT.PortName = sender.ToString();
+            try
+            {
+                COMPORT.Open();
+                COMPORT.Write("S");
+                int result;               
+                if (int.TryParse(COMPORT.ReadLine(), out result) && result == 82)
+                {
+                    PortToolButton.Text = "Порт: " + COMPORT.PortName;
+                }
+                else { throw new Exception("невозможно установить соединение с устройством"); }
+            } catch (Exception exc) { MessageBox.Show("Ошибка открытия порта: " + exc.Message.ToString()); }
+            
+        }
+        private void ClosePortToolButton_Click(object sender, EventArgs e)
+        {
+            stop();
+            COMPORT.Close();
+            PortToolButton.Text = "Порт:";
+        }
+        private bool PortToolButton_isOpen = false;
+        private void PortToolButton_MouseEnter(object sender, EventArgs e)
+        {
+            if (PortToolButton_isOpen) return;
+            PortToolButton.DropDownItems.Clear();
+            string[] PortNames = SerialPort.GetPortNames();      
+            for (int i = 0; i < PortNames.Length; i++)
+            {
+                ToolStripMenuItem PortNameToolButton = new ToolStripMenuItem
+                {
+                    Name = PortNames[i],
+                    Size = new Size(181, 26),
+                    Text = PortNames[i]
+                    
+                };               
+                PortToolButton.DropDownItems.Add(PortNameToolButton);
+                PortNameToolButton.Click += new EventHandler(PortSetToolButton_Click);
+            }
+            if (COMPORT.IsOpen)
+            {
+                ToolStripMenuItem ClosePortToolButton = new ToolStripMenuItem
+                {
+                    Name = "ClosePortToolButton",
+                    Size = new Size(181, 26),
+                    Text = "Закрыть порт"
 
-  
+                };
+                PortToolButton.DropDownItems.Add(ClosePortToolButton);
+                ClosePortToolButton.Click += new EventHandler(ClosePortToolButton_Click);
+            }
+        }
+        private void PortToolButton_DropDownClosed(object sender, EventArgs e)
+        {
+            PortToolButton_isOpen = false;
+        }
+        private void PortToolButton_DropDownOpening(object sender, EventArgs e)
+        {
+            PortToolButton_isOpen = true;
+        }
     }
 }

@@ -29,28 +29,30 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FileSaveToolButton = new System.Windows.Forms.ToolStripMenuItem();
             this.StartStopToolButton = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetToolButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.PortToolButton = new System.Windows.Forms.ToolStripMenuItem();
             this.Graph = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.Table = new unvell.ReoGrid.ReoGridControl();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.IntervalTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.AlphaTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.ShiftTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.menuStrip1.SuspendLayout();
+            this.COMPORT = new System.IO.Ports.SerialPort(this.components);
+            this.label2 = new System.Windows.Forms.Label();
+            this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Graph)).BeginInit();
             this.SuspendLayout();
             // 
@@ -59,18 +61,19 @@
             this.timer.Interval = 200;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // menuStrip1
+            // menuStrip
             // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.файлToolStripMenuItem,
             this.StartStopToolButton,
-            this.ResetToolButton});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1136, 28);
-            this.menuStrip1.TabIndex = 3;
-            this.menuStrip1.Text = "menuStrip1";
+            this.ResetToolButton,
+            this.PortToolButton});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(1136, 28);
+            this.menuStrip.TabIndex = 3;
+            this.menuStrip.Text = "menuStrip1";
             // 
             // файлToolStripMenuItem
             // 
@@ -101,6 +104,16 @@
             this.ResetToolButton.Text = "Сброс";
             this.ResetToolButton.Click += new System.EventHandler(this.ResetToolButton_Click);
             // 
+            // PortToolButton
+            // 
+            this.PortToolButton.Name = "PortToolButton";
+            this.PortToolButton.Size = new System.Drawing.Size(59, 24);
+            this.PortToolButton.Text = "Порт:";
+            this.PortToolButton.ToolTipText = "Выберете порт для подключения";
+            this.PortToolButton.DropDownClosed += new System.EventHandler(this.PortToolButton_DropDownClosed);
+            this.PortToolButton.DropDownOpening += new System.EventHandler(this.PortToolButton_DropDownOpening);
+            this.PortToolButton.MouseEnter += new System.EventHandler(this.PortToolButton_MouseEnter);
+            // 
             // Graph
             // 
             this.Graph.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -109,25 +122,25 @@
             this.Graph.BackColor = System.Drawing.Color.Transparent;
             this.Graph.BackSecondaryColor = System.Drawing.Color.Transparent;
             this.Graph.BorderlineColor = System.Drawing.Color.Transparent;
-            chartArea4.BackColor = System.Drawing.Color.Black;
-            chartArea4.BackSecondaryColor = System.Drawing.Color.Black;
-            chartArea4.Name = "ChartArea1";
-            this.Graph.ChartAreas.Add(chartArea4);
-            this.Graph.Location = new System.Drawing.Point(401, 69);
+            chartArea5.BackColor = System.Drawing.Color.Black;
+            chartArea5.BackSecondaryColor = System.Drawing.Color.Black;
+            chartArea5.Name = "ChartArea1";
+            this.Graph.ChartAreas.Add(chartArea5);
+            this.Graph.Location = new System.Drawing.Point(630, 69);
             this.Graph.Margin = new System.Windows.Forms.Padding(0);
             this.Graph.Name = "Graph";
             this.Graph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series7.Name = "Graph";
-            series7.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series8.Name = "GraphApproximated";
-            series8.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            this.Graph.Series.Add(series7);
-            this.Graph.Series.Add(series8);
-            this.Graph.Size = new System.Drawing.Size(749, 501);
+            series9.ChartArea = "ChartArea1";
+            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series9.Name = "Graph";
+            series9.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series10.ChartArea = "ChartArea1";
+            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series10.Name = "GraphApproximated";
+            series10.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.Graph.Series.Add(series9);
+            this.Graph.Series.Add(series10);
+            this.Graph.Size = new System.Drawing.Size(520, 501);
             this.Graph.TabIndex = 4;
             this.Graph.Text = "График";
             // 
@@ -147,7 +160,7 @@
             this.Table.SheetTabVisible = true;
             this.Table.SheetTabWidth = 60;
             this.Table.ShowScrollEndSpacing = true;
-            this.Table.Size = new System.Drawing.Size(393, 486);
+            this.Table.Size = new System.Drawing.Size(615, 486);
             this.Table.TabIndex = 5;
             this.Table.Text = "Таблица";
             // 
@@ -174,18 +187,9 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "Интервал -";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(244, 44);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(25, 17);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "α -";
-            // 
             // AlphaTextBox
             // 
-            this.AlphaTextBox.Location = new System.Drawing.Point(275, 41);
+            this.AlphaTextBox.Location = new System.Drawing.Point(354, 41);
             this.AlphaTextBox.Name = "AlphaTextBox";
             this.AlphaTextBox.Size = new System.Drawing.Size(100, 22);
             this.AlphaTextBox.TabIndex = 9;
@@ -195,7 +199,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(411, 44);
+            this.label3.Location = new System.Drawing.Point(531, 44);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(86, 17);
             this.label3.TabIndex = 12;
@@ -203,7 +207,7 @@
             // 
             // ShiftTextBox
             // 
-            this.ShiftTextBox.Location = new System.Drawing.Point(503, 41);
+            this.ShiftTextBox.Location = new System.Drawing.Point(623, 41);
             this.ShiftTextBox.Name = "ShiftTextBox";
             this.ShiftTextBox.Size = new System.Drawing.Size(100, 22);
             this.ShiftTextBox.TabIndex = 11;
@@ -222,44 +226,53 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(381, 44);
+            this.label5.Location = new System.Drawing.Point(260, 44);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(27, 17);
+            this.label5.Size = new System.Drawing.Size(88, 17);
             this.label5.TabIndex = 14;
-            this.label5.Text = "у.е";
+            this.label5.Text = "Усреднение";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(609, 44);
+            this.label6.Location = new System.Drawing.Point(729, 44);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(27, 17);
             this.label6.TabIndex = 15;
             this.label6.Text = "у.е";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(460, 44);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(27, 17);
+            this.label2.TabIndex = 16;
+            this.label2.Text = "у.е";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1136, 561);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.ShiftTextBox);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.AlphaTextBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.IntervalTextBox);
             this.Controls.Add(this.Table);
             this.Controls.Add(this.Graph);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.Controls.Add(this.menuStrip);
+            this.MainMenuStrip = this.menuStrip;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Спектрофотометр";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Graph)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -268,7 +281,7 @@
 
         #endregion
         private System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem StartStopToolButton;
         private System.Windows.Forms.ToolStripMenuItem FileSaveToolButton;
@@ -278,13 +291,15 @@
         private System.Windows.Forms.ToolStripMenuItem ResetToolButton;
         private System.Windows.Forms.TextBox IntervalTextBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox AlphaTextBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox ShiftTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
+        private System.IO.Ports.SerialPort COMPORT;
+        private System.Windows.Forms.ToolStripMenuItem PortToolButton;
+        private System.Windows.Forms.Label label2;
     }
 }
 
