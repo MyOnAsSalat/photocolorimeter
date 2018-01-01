@@ -1,6 +1,6 @@
 ﻿namespace Spec
 {
-    partial class Form1
+    partial class FormMode_1
     {
         /// <summary>
         /// Обязательная переменная конструктора.
@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,6 +39,7 @@
             this.StartStopToolButton = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetToolButton = new System.Windows.Forms.ToolStripMenuItem();
             this.PortToolButton = new System.Windows.Forms.ToolStripMenuItem();
+            this.ModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Graph = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.Table = new unvell.ReoGrid.ReoGridControl();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
@@ -50,8 +51,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.COMPORT = new System.IO.Ports.SerialPort(this.components);
             this.label2 = new System.Windows.Forms.Label();
+            this.режим2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Graph)).BeginInit();
             this.SuspendLayout();
@@ -68,7 +69,8 @@
             this.файлToolStripMenuItem,
             this.StartStopToolButton,
             this.ResetToolButton,
-            this.PortToolButton});
+            this.PortToolButton,
+            this.ModeToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(1136, 28);
@@ -114,6 +116,14 @@
             this.PortToolButton.DropDownOpening += new System.EventHandler(this.PortToolButton_DropDownOpening);
             this.PortToolButton.MouseEnter += new System.EventHandler(this.PortToolButton_MouseEnter);
             // 
+            // ModeToolStripMenuItem
+            // 
+            this.ModeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.режим2ToolStripMenuItem});
+            this.ModeToolStripMenuItem.Name = "ModeToolStripMenuItem";
+            this.ModeToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
+            this.ModeToolStripMenuItem.Text = "Режим: 1";
+            // 
             // Graph
             // 
             this.Graph.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -122,24 +132,24 @@
             this.Graph.BackColor = System.Drawing.Color.Transparent;
             this.Graph.BackSecondaryColor = System.Drawing.Color.Transparent;
             this.Graph.BorderlineColor = System.Drawing.Color.Transparent;
-            chartArea5.BackColor = System.Drawing.Color.Black;
-            chartArea5.BackSecondaryColor = System.Drawing.Color.Black;
-            chartArea5.Name = "ChartArea1";
-            this.Graph.ChartAreas.Add(chartArea5);
+            chartArea2.BackColor = System.Drawing.Color.Black;
+            chartArea2.BackSecondaryColor = System.Drawing.Color.Black;
+            chartArea2.Name = "ChartArea1";
+            this.Graph.ChartAreas.Add(chartArea2);
             this.Graph.Location = new System.Drawing.Point(630, 69);
             this.Graph.Margin = new System.Windows.Forms.Padding(0);
             this.Graph.Name = "Graph";
             this.Graph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series9.ChartArea = "ChartArea1";
-            series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series9.Name = "Graph";
-            series9.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            series10.ChartArea = "ChartArea1";
-            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series10.Name = "GraphApproximated";
-            series10.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            this.Graph.Series.Add(series9);
-            this.Graph.Series.Add(series10);
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Name = "Graph";
+            series3.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Name = "GraphApproximated";
+            series4.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.Graph.Series.Add(series3);
+            this.Graph.Series.Add(series4);
             this.Graph.Size = new System.Drawing.Size(520, 501);
             this.Graph.TabIndex = 4;
             this.Graph.Text = "График";
@@ -250,7 +260,13 @@
             this.label2.TabIndex = 16;
             this.label2.Text = "у.е";
             // 
-            // Form1
+            // режим2ToolStripMenuItem
+            // 
+            this.режим2ToolStripMenuItem.Name = "режим2ToolStripMenuItem";
+            this.режим2ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.режим2ToolStripMenuItem.Text = "Режим: 2";
+            // 
+            // FormMode_1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -269,7 +285,7 @@
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
             this.Margin = new System.Windows.Forms.Padding(4);
-            this.Name = "Form1";
+            this.Name = "FormMode_1";
             this.Text = "Спектрофотометр";
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
@@ -297,9 +313,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.IO.Ports.SerialPort COMPORT;
         private System.Windows.Forms.ToolStripMenuItem PortToolButton;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripMenuItem ModeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem режим2ToolStripMenuItem;
     }
 }
 

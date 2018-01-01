@@ -13,14 +13,14 @@ using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using unvell.ReoGrid.DataFormat;
 using System.IO.Ports;
-
+using static Spec.CommonSerialPort;
 namespace Spec
 {
-    public partial class Form1 : Form
+    public partial class FormMode_1 : Form
     {       
         Stopwatch stopWatch = new Stopwatch();
         int i = 0;
-        public Form1()
+        public FormMode_1()
         {
             InitializeComponent();
             Table.CurrentWorksheet.ColumnCount = 4;
@@ -56,7 +56,7 @@ namespace Spec
                 }
                 enable = true;
                 
-                buf = Function();
+                buf = Read();
                 timer.Start();
             } else { stop(); }
             StartStopToolButton.Text = (enable) ? "Стоп" : "Старт";
@@ -76,7 +76,7 @@ namespace Spec
             Table.CurrentWorksheet.Cells["A" + i].Data = stopWatch.Elapsed.ToString("hh\\:mm\\:ss\\:ff");
             double time = ((double)stopWatch.ElapsedMilliseconds) / 1000;
             Table.CurrentWorksheet.Cells["B" + i].Data = time;
-            double cur = Math.Round(Function(), 3)+shift;
+            double cur = Math.Round(Read(), 3)+shift;
             Graph.Series[0].Points.AddXY(time, cur);
             Table.CurrentWorksheet.Cells["C" + i].Data = cur;
             buf = Math.Round((1 - a) * buf + a * cur, 3);
@@ -86,7 +86,7 @@ namespace Spec
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private double Function()
+        private double Read()
         {
             COMPORT.Write("R");
             string msg = COMPORT.ReadLine().Replace(".",",");
@@ -129,13 +129,12 @@ namespace Spec
             {
                 COMPORT.Open();
                 COMPORT.Write("S");
-                int result;               
-                if (int.TryParse(COMPORT.ReadLine(), out result) && result == 82)
+                if (int.TryParse(COMPORT.ReadLine(), out var result) && result == 'R')
                 {
                     PortToolButton.Text = "Порт: " + COMPORT.PortName;
                 }
                 else { throw new Exception("невозможно установить соединение с устройством"); }
-            } catch (Exception exc) { MessageBox.Show("Ошибка открытия порта: " + exc.Message.ToString()); }
+            } catch (Exception exc) { MessageBox.Show("Ошибка открытия порта: " + exc.Message); }
             
         }
         private void ClosePortToolButton_Click(object sender, EventArgs e)
@@ -183,5 +182,7 @@ namespace Spec
         {
             PortToolButton_isOpen = true;
         }
+
+
     }
 }
