@@ -128,6 +128,7 @@ namespace Spec
             try
             {
                 COMPORT.Open();
+                COMPORT.Write("X");
                 COMPORT.Write("S");
                 if (int.TryParse(COMPORT.ReadLine(), out var result) && result == 'R')
                 {

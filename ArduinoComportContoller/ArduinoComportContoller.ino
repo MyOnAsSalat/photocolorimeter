@@ -71,9 +71,10 @@ int Mode_2() //Режим по символу Y
         case 'Z':     
           digitalWrite(LAZERPIN, LOW);
           break;     
-        case 'D':      
+        case 'D':
+          pause = ReadNumber();    
           break;
-        case 'R':
+        case 'S':
           Serial.println('R');
         default:
           if(isMode(buf))
@@ -88,5 +89,19 @@ int Mode_2() //Режим по символу Y
 bool isMode(int key) //Является ли код режимом
 {
   return (key >=88 & key<=90); //Символы X, Y, Z
+}
+int ReadNumber()
+{
+  int x = 0;
+  while (true)
+  {
+    while(Serial.available() > 0) 
+    { 
+      int buf = Serial.read();
+      if (buf == 10) return x;
+      x = x * 10 + (buf - '0'); 
+      delay(2); 
+    }
+  }   
 }
 
