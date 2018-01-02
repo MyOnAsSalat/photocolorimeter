@@ -15,7 +15,6 @@ D:\Develop\@projects\Spec\Spec\bin\Debug\Spec.exe
 D:\Develop\@projects\Spec\Spec\bin\Debug\Spec.pdb
 D:\Develop\@projects\Spec\Spec\bin\Debug\unvell.ReoGrid.dll
 D:\Develop\@projects\Spec\Spec\bin\Debug\unvell.ReoGrid.xml
-D:\Develop\@projects\Spec\Spec\obj\Debug\Spec.csprojResolveAssemblyReference.cache
 D:\Develop\@projects\Spec\Spec\obj\Debug\Spec.Properties.Resources.resources
 D:\Develop\@projects\Spec\Spec\obj\Debug\Spec.csproj.GenerateResource.Cache
 D:\Develop\@projects\Spec\Spec\obj\Debug\Spec.csproj.CoreCompileInputs.cache
@@ -23,3 +22,4 @@ D:\Develop\@projects\Spec\Spec\obj\Debug\Spec.exe
 D:\Develop\@projects\Spec\Spec\obj\Debug\Spec.pdb
 D:\Develop\@projects\Spec\Spec\obj\Debug\Spec.FormMode_1.resources
 D:\Develop\@projects\Spec\Spec\obj\Debug\Spec.FormMode_2.resources
+D:\Develop\@projects\Spec\Spec\obj\Debug\Spec.csprojResolveAssemblyReference.cache

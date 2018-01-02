@@ -29,17 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.файлToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FileSaveToolButton = new System.Windows.Forms.ToolStripMenuItem();
             this.StartStopToolButton = new System.Windows.Forms.ToolStripMenuItem();
             this.ResetToolButton = new System.Windows.Forms.ToolStripMenuItem();
             this.PortToolButton = new System.Windows.Forms.ToolStripMenuItem();
             this.ModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Mode_2_ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Graph = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.Table = new unvell.ReoGrid.ReoGridControl();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
@@ -52,7 +53,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.режим2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Graph)).BeginInit();
             this.SuspendLayout();
@@ -66,7 +66,7 @@
             // 
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.файлToolStripMenuItem,
+            this.FileToolStripMenuItem,
             this.StartStopToolButton,
             this.ResetToolButton,
             this.PortToolButton,
@@ -77,13 +77,13 @@
             this.menuStrip.TabIndex = 3;
             this.menuStrip.Text = "menuStrip1";
             // 
-            // файлToolStripMenuItem
+            // FileToolStripMenuItem
             // 
-            this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.FileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.FileSaveToolButton});
-            this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
-            this.файлToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
-            this.файлToolStripMenuItem.Text = "Файл";
+            this.FileToolStripMenuItem.Name = "FileToolStripMenuItem";
+            this.FileToolStripMenuItem.Size = new System.Drawing.Size(57, 24);
+            this.FileToolStripMenuItem.Text = "Файл";
             // 
             // FileSaveToolButton
             // 
@@ -119,10 +119,17 @@
             // ModeToolStripMenuItem
             // 
             this.ModeToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.режим2ToolStripMenuItem});
+            this.Mode_2_ToolStripMenuItem});
             this.ModeToolStripMenuItem.Name = "ModeToolStripMenuItem";
             this.ModeToolStripMenuItem.Size = new System.Drawing.Size(83, 24);
             this.ModeToolStripMenuItem.Text = "Режим: 1";
+            // 
+            // Mode_2_ToolStripMenuItem
+            // 
+            this.Mode_2_ToolStripMenuItem.Name = "Mode_2_ToolStripMenuItem";
+            this.Mode_2_ToolStripMenuItem.Size = new System.Drawing.Size(146, 26);
+            this.Mode_2_ToolStripMenuItem.Text = "Режим: 2";
+            this.Mode_2_ToolStripMenuItem.Click += new System.EventHandler(this.Mode_2_ToolStripMenuItem_Click);
             // 
             // Graph
             // 
@@ -132,24 +139,24 @@
             this.Graph.BackColor = System.Drawing.Color.Transparent;
             this.Graph.BackSecondaryColor = System.Drawing.Color.Transparent;
             this.Graph.BorderlineColor = System.Drawing.Color.Transparent;
-            chartArea2.BackColor = System.Drawing.Color.Black;
-            chartArea2.BackSecondaryColor = System.Drawing.Color.Black;
-            chartArea2.Name = "ChartArea1";
-            this.Graph.ChartAreas.Add(chartArea2);
+            chartArea1.BackColor = System.Drawing.Color.Black;
+            chartArea1.BackSecondaryColor = System.Drawing.Color.Black;
+            chartArea1.Name = "ChartArea1";
+            this.Graph.ChartAreas.Add(chartArea1);
             this.Graph.Location = new System.Drawing.Point(630, 69);
             this.Graph.Margin = new System.Windows.Forms.Padding(0);
             this.Graph.Name = "Graph";
             this.Graph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Name = "Graph";
-            series3.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Name = "GraphApproximated";
-            series4.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            this.Graph.Series.Add(series3);
-            this.Graph.Series.Add(series4);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Name = "Graph";
+            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Name = "GraphApproximated";
+            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.Graph.Series.Add(series1);
+            this.Graph.Series.Add(series2);
             this.Graph.Size = new System.Drawing.Size(520, 501);
             this.Graph.TabIndex = 4;
             this.Graph.Text = "График";
@@ -260,12 +267,6 @@
             this.label2.TabIndex = 16;
             this.label2.Text = "у.е";
             // 
-            // режим2ToolStripMenuItem
-            // 
-            this.режим2ToolStripMenuItem.Name = "режим2ToolStripMenuItem";
-            this.режим2ToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.режим2ToolStripMenuItem.Text = "Режим: 2";
-            // 
             // FormMode_1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -287,6 +288,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FormMode_1";
             this.Text = "Спектрофотометр";
+            this.Activated += new System.EventHandler(this.FormMode_1_Activated);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Graph)).EndInit();
@@ -298,7 +300,7 @@
         #endregion
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.MenuStrip menuStrip;
-        private System.Windows.Forms.ToolStripMenuItem файлToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem FileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem StartStopToolButton;
         private System.Windows.Forms.ToolStripMenuItem FileSaveToolButton;
         private System.Windows.Forms.DataVisualization.Charting.Chart Graph;
@@ -316,7 +318,7 @@
         private System.Windows.Forms.ToolStripMenuItem PortToolButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem ModeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem режим2ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem Mode_2_ToolStripMenuItem;
     }
 }
 

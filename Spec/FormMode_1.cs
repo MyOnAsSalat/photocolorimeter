@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
-using System.Threading;
-using System.Runtime.InteropServices;
 using System.Runtime.CompilerServices;
 using unvell.ReoGrid.DataFormat;
 using System.IO.Ports;
@@ -19,17 +11,24 @@ namespace Spec
     public partial class FormMode_1 : Form
     {       
         Stopwatch stopWatch = new Stopwatch();
-        int i = 0;
+        int RowIndex = 0;
+        FormMode_2 FormNow;
         public FormMode_1()
         {
             InitializeComponent();
+            COMPORT.PinChanged += PortClose_Event;
+            FormNow = new FormMode_2(this);
             Table.CurrentWorksheet.ColumnCount = 4;
             Table.CurrentWorksheet.ColumnHeaders[0].Width = 100;
             Table.CurrentWorksheet.ColumnHeaders[1].Width = 100;
             Table.CurrentWorksheet.ColumnHeaders[2].Width = 100;
             Table.CurrentWorksheet.ColumnHeaders[3].Width = 100;
             Table.CurrentWorksheet.RowCount = 1;
-            Table.CurrentWorksheet.Name = "Graph";                      
+            Table.CurrentWorksheet.Name = "Graph";
+            Table.CurrentWorksheet.ColumnHeaders[0].Text = "Время";
+            Table.CurrentWorksheet.ColumnHeaders[1].Text = "Время в С";
+            Table.CurrentWorksheet.ColumnHeaders[2].Text = "Значение";
+            Table.CurrentWorksheet.ColumnHeaders[3].Text = "Усреднённое";
         }
         bool enable = false;
         double a = 0.5d;
@@ -70,29 +69,42 @@ namespace Spec
         double buf = 0;
         private void timer_Tick(object sender, EventArgs e)
         {
-            i++;
+            RowIndex++;
             Table.CurrentWorksheet.RowCount = Table.CurrentWorksheet.RowCount + 1;
-            Table.CurrentWorksheet.Cells["A" + i].DataFormat = CellDataFormatFlag.DateTime;
-            Table.CurrentWorksheet.Cells["A" + i].Data = stopWatch.Elapsed.ToString("hh\\:mm\\:ss\\:ff");
+            Table.CurrentWorksheet.Cells["A" + RowIndex].DataFormat = CellDataFormatFlag.DateTime;
+            Table.CurrentWorksheet.Cells["A" + RowIndex].Data = stopWatch.Elapsed.ToString("hh\\:mm\\:ss\\:ff");
             double time = ((double)stopWatch.ElapsedMilliseconds) / 1000;
-            Table.CurrentWorksheet.Cells["B" + i].Data = time;
+            Table.CurrentWorksheet.Cells["B" + RowIndex].Data = time;
             double cur = Math.Round(Read(), 3)+shift;
             Graph.Series[0].Points.AddXY(time, cur);
-            Table.CurrentWorksheet.Cells["C" + i].Data = cur;
+            Table.CurrentWorksheet.Cells["C" + RowIndex].Data = cur;
             buf = Math.Round((1 - a) * buf + a * cur, 3);
             Graph.Series[1].Points.AddXY(time, buf);
-            Table.CurrentWorksheet.Cells["D" + i].Data = buf;
+            Table.CurrentWorksheet.Cells["D" + RowIndex].Data = buf;
             stopWatch.Start();           
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private double Read()
         {
-            COMPORT.Write("R");
+            try
+            {
+                COMPORT.Write("R");
+            }
+            catch (Exception e)
+            {
+                stop();
+                MessageBox.Show("Ошибка соединения, чтение остановлено: " + e.Message);
+                return 0;             
+            }          
             string msg = COMPORT.ReadLine().Replace(".",",");
             return Convert.ToDouble(msg);           
         }
 
+        public void PortClose_Event(object sender, EventArgs e)
+        {
+            MessageBox.Show("Ошибка:");
+        }
         private void FileSaveToolButton_Click(object sender, EventArgs e)
         {
             Table.CurrentWorksheet.Name = DateTime.Now.ToShortDateString();
@@ -103,13 +115,13 @@ namespace Spec
             {
                 Table.Save(SaveFileDialog.FileName, unvell.ReoGrid.IO.FileFormat.Excel2007);
                 
-            } catch (Exception exc) { MessageBox.Show(exc.ToString(), "Ошибка:"); }
+            } catch (Exception exc) { MessageBox.Show(exc.Message, "Ошибка:"); }
         }
         private void ResetToolButton_Click(object sender, EventArgs e)
         {
             DialogResult result = MessageBox.Show("Вы уверены что хотите сбросить данные?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.No) { return; }
-            i = 0;
+            RowIndex = 0;
             stop();
             StartStopToolButton.Text = "Старт";
             Table.CurrentWorksheet.RowCount = 1;
@@ -134,7 +146,7 @@ namespace Spec
                 {
                     PortToolButton.Text = "Порт: " + COMPORT.PortName;
                 }
-                else { throw new Exception("невозможно установить соединение с устройством"); }
+                else { throw new Exception("Невозможно установить соединение с устройством"); }
             } catch (Exception exc) { MessageBox.Show("Ошибка открытия порта: " + exc.Message); }
             
         }
@@ -147,9 +159,14 @@ namespace Spec
         private bool PortToolButton_isOpen = false;
         private void PortToolButton_MouseEnter(object sender, EventArgs e)
         {
+            UpdatePortList();
+        }
+
+        private void UpdatePortList()
+        {
             if (PortToolButton_isOpen) return;
             PortToolButton.DropDownItems.Clear();
-            string[] PortNames = SerialPort.GetPortNames();      
+            string[] PortNames = SerialPort.GetPortNames();
             for (int i = 0; i < PortNames.Length; i++)
             {
                 ToolStripMenuItem PortNameToolButton = new ToolStripMenuItem
@@ -157,8 +174,8 @@ namespace Spec
                     Name = PortNames[i],
                     Size = new Size(181, 26),
                     Text = PortNames[i]
-                    
-                };               
+
+                };
                 PortToolButton.DropDownItems.Add(PortNameToolButton);
                 PortNameToolButton.Click += new EventHandler(PortSetToolButton_Click);
             }
@@ -183,7 +200,21 @@ namespace Spec
         {
             PortToolButton_isOpen = true;
         }
-
-
+        private void Mode_2_ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            stop();
+             
+            FormNow.Show();
+            this.Hide();
+        }
+        //PortToolButton.Text = (COMPORT.IsOpen) ? "Порт: " + COMPORT.PortName : "Порт: ";
+        private void FormMode_1_Activated(object sender, EventArgs e)
+        {
+            PortToolButton.Text = (COMPORT.IsOpen) ? "Порт: " + COMPORT.PortName : "Порт: ";
+            if (COMPORT.IsOpen)
+            {
+                COMPORT.Write("X");
+            }
+        }
     }
 }

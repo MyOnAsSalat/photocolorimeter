@@ -75,10 +75,11 @@ int Mode_2() //Режим по символу Y
           pause = ReadNumber();    
           break;
         case 'S':
-          Serial.println('R');
+          Serial.println(82);//82 = 'R'
         default:
           if(isMode(buf))
           {
+            digitalWrite(LAZERPIN, LOW);
             return buf;
           }
           break;  
