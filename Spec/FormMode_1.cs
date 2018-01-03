@@ -11,6 +11,7 @@ using static Spec.CommonSerialPort;
 namespace Spec
 {
     [SuppressMessage("ReSharper", "LocalizableElement")]
+    [SuppressMessage("ReSharper", "ArrangeThisQualifier")]
     public partial class FormMode_1 : Form
     {       
         Stopwatch stopWatch = new Stopwatch();
