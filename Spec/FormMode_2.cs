@@ -3,8 +3,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO.Ports;
 using System.Windows.Forms;
-using unvell.ReoGrid.DataFormat;
+using unvell.ReoGrid;
 using static Spec.CommonSerialPort;
+// ReSharper disable All
 namespace Spec
 {
     public partial class FormMode_2 : Form
@@ -12,7 +13,7 @@ namespace Spec
         int RowIndex = 0;
         int interval = 1000;
         bool enable = false;
-        private int pause = 100;
+        private int delay = 100;
         Stopwatch stopWatch = new Stopwatch();
         public FormMode_1 BaseForm;
         public FormMode_2(FormMode_1 BaseForm)
@@ -30,17 +31,29 @@ namespace Spec
             Table.CurrentWorksheet.ColumnHeaders[1].Text = "Сигнал";
             Table.CurrentWorksheet.ColumnHeaders[2].Text = "Ноль";
             Table.CurrentWorksheet.ColumnHeaders[3].Text = "Значение";
+            Table.CurrentWorksheet.SetSettings(WorksheetSettings.Edit_Readonly, true);
         }
         private void Mode_2_ToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            stop();
+            ManagedMode();
             BaseForm.Show();
             this.Hide();
         }
         private void stop()
         {
             enable = false;
+            ManagedMode();
             StartStopToolButton.Text = (enable) ? "Стоп" : "Старт";
             timer.Stop();
+            try
+            {
+                if (COMPORT.IsOpen)
+                {
+                    COMPORT.Write("Z");
+                }
+            }
+            catch (Exception) { }
         }
         private void FileSaveToolButton_Click(object sender, EventArgs e)
         {
@@ -69,6 +82,7 @@ namespace Spec
             Table.CurrentWorksheet.Cells["D" + 1].Data = null;
             Graph.Series[0].Points.Clear();
             Graph.Series[1].Points.Clear();
+            Graph.Series[2].Points.Clear();
             stopWatch = new Stopwatch();
         }
         private void PortSetToolButton_Click(object sender, EventArgs e)
@@ -91,9 +105,9 @@ namespace Spec
         }
         private void ClosePortToolButton_Click(object sender, EventArgs e)
         {
-            stop();
+            stop();           
             COMPORT.Close();
-            PortToolButton.Text = "Порт:";
+            PortToolButton.Text = "Порт:";          
         }
         private bool PortToolButton_isOpen = false;
         private void StartStopToolButton_Click(object sender, EventArgs e)
@@ -112,8 +126,22 @@ namespace Spec
                     MessageBox.Show("Введены неверные данные:" + "\n" + exc.ToString().Replace("System.Exception: ", ""), "Ошибка:");
                     return;
                 }
-                enable = true; 
+                enable = true;
+                timer.Interval = Convert.ToInt32(IntervalTextBox.Text);
+                try
+                {
+                    if (COMPORT.IsOpen)
+                    {
+                        COMPORT.Write("D");
+                        COMPORT.WriteLine(Convert.ToString(delay));
+                    }
+                }
+                catch (Exception)
+                {
+
+                }
                 timer.Start();
+                ManagedMode();
             }
             else { stop(); }
             StartStopToolButton.Text = (enable) ? "Стоп" : "Старт";
@@ -166,10 +194,7 @@ namespace Spec
                     COMPORT.Write("Y");
                 }
             }
-            catch (Exception)
-            {
-
-            }
+            catch (Exception){}
         }
 
         private bool LazerOn = false;
@@ -185,12 +210,16 @@ namespace Spec
                     LazerOn = !LazerOn;                   
                 }
             }
-            catch (Exception)
-            {
-
-            }
+            catch (Exception){}
         }
+        private void ManagedMode()
+        {
+            LazerToolStripMenuItem.BackColor = (enable) ? Color.AliceBlue : Color.Red;
+            LazerToolStripMenuItem.Enabled = !enable;
+            LazerToolStripMenuItem.Text = (enable) ? "Лазер: в работе" : "Лазер: выключен";
+            GetValueButton.Enabled = !enable;
 
+        }
         private void timer_Tick(object sender, EventArgs e)
         {
             RowIndex++;
@@ -214,9 +243,9 @@ namespace Spec
             try
             {
                 COMPORT.Write("P");
-                System.Threading.Thread.Sleep(pause);
+                System.Threading.Thread.Sleep(delay);
                 signal = Convert.ToDouble(COMPORT.ReadLine());
-                System.Threading.Thread.Sleep(pause);
+                System.Threading.Thread.Sleep(delay);
                 zero = Convert.ToDouble(COMPORT.ReadLine());
             }
             catch (Exception e)
@@ -227,6 +256,25 @@ namespace Spec
                 zero = 0;
             }
 
+        }
+
+        private void FormMode_2_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            BaseForm.Close();
+        }
+
+        private void GetValueButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (COMPORT.IsOpen)
+                {
+                    COMPORT.Write("R");
+                    ValueTextBox.Text = COMPORT.ReadLine();
+                }
+            }
+            catch (Exception){}
         }
     }
 }

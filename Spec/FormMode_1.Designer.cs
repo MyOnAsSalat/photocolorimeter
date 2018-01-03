@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,15 +44,15 @@
             this.Graph = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.Table = new unvell.ReoGrid.ReoGridControl();
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.IntervalTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.AlphaTextBox = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.ShiftTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.IntervalTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.AlphaTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.ShiftTextBox = new System.Windows.Forms.MaskedTextBox();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Graph)).BeginInit();
             this.SuspendLayout();
@@ -139,24 +139,24 @@
             this.Graph.BackColor = System.Drawing.Color.Transparent;
             this.Graph.BackSecondaryColor = System.Drawing.Color.Transparent;
             this.Graph.BorderlineColor = System.Drawing.Color.Transparent;
-            chartArea1.BackColor = System.Drawing.Color.Black;
-            chartArea1.BackSecondaryColor = System.Drawing.Color.Black;
-            chartArea1.Name = "ChartArea1";
-            this.Graph.ChartAreas.Add(chartArea1);
+            chartArea7.BackColor = System.Drawing.Color.Black;
+            chartArea7.BackSecondaryColor = System.Drawing.Color.Black;
+            chartArea7.Name = "ChartArea1";
+            this.Graph.ChartAreas.Add(chartArea7);
             this.Graph.Location = new System.Drawing.Point(630, 69);
             this.Graph.Margin = new System.Windows.Forms.Padding(0);
             this.Graph.Name = "Graph";
             this.Graph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Name = "Graph";
-            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Name = "GraphApproximated";
-            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            this.Graph.Series.Add(series1);
-            this.Graph.Series.Add(series2);
+            series13.ChartArea = "ChartArea1";
+            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series13.Name = "Graph";
+            series13.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series14.ChartArea = "ChartArea1";
+            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series14.Name = "GraphApproximated";
+            series14.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.Graph.Series.Add(series13);
+            this.Graph.Series.Add(series14);
             this.Graph.Size = new System.Drawing.Size(520, 501);
             this.Graph.TabIndex = 4;
             this.Graph.Text = "График";
@@ -184,16 +184,8 @@
             // SaveFileDialog
             // 
             this.SaveFileDialog.DefaultExt = "xlsx";
-            this.SaveFileDialog.FileName = "Таблица";
-            // 
-            // IntervalTextBox
-            // 
-            this.IntervalTextBox.Location = new System.Drawing.Point(96, 41);
-            this.IntervalTextBox.Name = "IntervalTextBox";
-            this.IntervalTextBox.Size = new System.Drawing.Size(100, 22);
-            this.IntervalTextBox.TabIndex = 6;
-            this.IntervalTextBox.Text = "1000";
-            this.IntervalTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.SaveFileDialog.FileName = "Измерения фотоколориметр";
+            this.SaveFileDialog.Title = "Сохранить таблицу";
             // 
             // label1
             // 
@@ -204,37 +196,19 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "Интервал -";
             // 
-            // AlphaTextBox
-            // 
-            this.AlphaTextBox.Location = new System.Drawing.Point(354, 41);
-            this.AlphaTextBox.Name = "AlphaTextBox";
-            this.AlphaTextBox.Size = new System.Drawing.Size(100, 22);
-            this.AlphaTextBox.TabIndex = 9;
-            this.AlphaTextBox.Text = "10";
-            this.AlphaTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(531, 44);
+            this.label3.Location = new System.Drawing.Point(380, 44);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(86, 17);
             this.label3.TabIndex = 12;
             this.label3.Text = "Смещение -";
             // 
-            // ShiftTextBox
-            // 
-            this.ShiftTextBox.Location = new System.Drawing.Point(623, 41);
-            this.ShiftTextBox.Name = "ShiftTextBox";
-            this.ShiftTextBox.Size = new System.Drawing.Size(100, 22);
-            this.ShiftTextBox.TabIndex = 11;
-            this.ShiftTextBox.Text = "0";
-            this.ShiftTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(202, 44);
+            this.label4.Location = new System.Drawing.Point(154, 44);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(24, 17);
             this.label4.TabIndex = 13;
@@ -243,7 +217,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(260, 44);
+            this.label5.Location = new System.Drawing.Point(195, 44);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(88, 17);
             this.label5.TabIndex = 14;
@@ -252,7 +226,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(729, 44);
+            this.label6.Location = new System.Drawing.Point(540, 44);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(27, 17);
             this.label6.TabIndex = 15;
@@ -261,26 +235,59 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(460, 44);
+            this.label2.Location = new System.Drawing.Point(347, 44);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(27, 17);
             this.label2.TabIndex = 16;
             this.label2.Text = "у.е";
+            // 
+            // IntervalTextBox
+            // 
+            this.IntervalTextBox.Location = new System.Drawing.Point(96, 41);
+            this.IntervalTextBox.Mask = "00000";
+            this.IntervalTextBox.Name = "IntervalTextBox";
+            this.IntervalTextBox.ResetOnSpace = false;
+            this.IntervalTextBox.Size = new System.Drawing.Size(52, 22);
+            this.IntervalTextBox.TabIndex = 17;
+            this.IntervalTextBox.Text = "1000";
+            this.IntervalTextBox.ValidatingType = typeof(int);
+            // 
+            // AlphaTextBox
+            // 
+            this.AlphaTextBox.Location = new System.Drawing.Point(289, 41);
+            this.AlphaTextBox.Mask = "00000";
+            this.AlphaTextBox.Name = "AlphaTextBox";
+            this.AlphaTextBox.ResetOnSpace = false;
+            this.AlphaTextBox.Size = new System.Drawing.Size(52, 22);
+            this.AlphaTextBox.TabIndex = 18;
+            this.AlphaTextBox.Text = "10";
+            this.AlphaTextBox.ValidatingType = typeof(int);
+            // 
+            // ShiftTextBox
+            // 
+            this.ShiftTextBox.Location = new System.Drawing.Point(472, 41);
+            this.ShiftTextBox.Mask = "00000";
+            this.ShiftTextBox.Name = "ShiftTextBox";
+            this.ShiftTextBox.ResetOnSpace = false;
+            this.ShiftTextBox.Size = new System.Drawing.Size(52, 22);
+            this.ShiftTextBox.TabIndex = 19;
+            this.ShiftTextBox.Text = "0";
+            this.ShiftTextBox.ValidatingType = typeof(int);
             // 
             // FormMode_1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1136, 561);
+            this.Controls.Add(this.ShiftTextBox);
+            this.Controls.Add(this.AlphaTextBox);
+            this.Controls.Add(this.IntervalTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.ShiftTextBox);
-            this.Controls.Add(this.AlphaTextBox);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.IntervalTextBox);
             this.Controls.Add(this.Table);
             this.Controls.Add(this.Graph);
             this.Controls.Add(this.menuStrip);
@@ -289,6 +296,7 @@
             this.Name = "FormMode_1";
             this.Text = "Спектрофотометр";
             this.Activated += new System.EventHandler(this.FormMode_1_Activated);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMode_1_FormClosing);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Graph)).EndInit();
@@ -307,11 +315,8 @@
         private unvell.ReoGrid.ReoGridControl Table;
         private System.Windows.Forms.SaveFileDialog SaveFileDialog;
         private System.Windows.Forms.ToolStripMenuItem ResetToolButton;
-        private System.Windows.Forms.TextBox IntervalTextBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox AlphaTextBox;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox ShiftTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
@@ -319,6 +324,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripMenuItem ModeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem Mode_2_ToolStripMenuItem;
+        private System.Windows.Forms.MaskedTextBox IntervalTextBox;
+        private System.Windows.Forms.MaskedTextBox AlphaTextBox;
+        private System.Windows.Forms.MaskedTextBox ShiftTextBox;
     }
 }
 

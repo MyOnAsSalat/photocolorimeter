@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.FileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.FileSaveToolButton = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,8 +46,13 @@
             this.SaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.label1 = new System.Windows.Forms.Label();
-            this.IntervalTextBox = new System.Windows.Forms.TextBox();
             this.Graph = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label2 = new System.Windows.Forms.Label();
+            this.DelayTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.IntervalTextBox = new System.Windows.Forms.MaskedTextBox();
+            this.GetValueButton = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.ValueTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Graph)).BeginInit();
             this.SuspendLayout();
@@ -146,9 +151,14 @@
             this.Table.SheetTabVisible = true;
             this.Table.SheetTabWidth = 60;
             this.Table.ShowScrollEndSpacing = true;
-            this.Table.Size = new System.Drawing.Size(590, 434);
+            this.Table.Size = new System.Drawing.Size(610, 434);
             this.Table.TabIndex = 6;
             this.Table.Text = "Таблица";
+            // 
+            // SaveFileDialog
+            // 
+            this.SaveFileDialog.DefaultExt = "xlsx";
+            this.SaveFileDialog.FileName = "Измерения фотоколориметр";
             // 
             // timer
             // 
@@ -163,15 +173,6 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "Интервал -";
             // 
-            // IntervalTextBox
-            // 
-            this.IntervalTextBox.Location = new System.Drawing.Point(96, 28);
-            this.IntervalTextBox.Name = "IntervalTextBox";
-            this.IntervalTextBox.Size = new System.Drawing.Size(100, 22);
-            this.IntervalTextBox.TabIndex = 9;
-            this.IntervalTextBox.Text = "1000";
-            this.IntervalTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            // 
             // Graph
             // 
             this.Graph.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -180,46 +181,110 @@
             this.Graph.BackColor = System.Drawing.Color.Transparent;
             this.Graph.BackSecondaryColor = System.Drawing.Color.Transparent;
             this.Graph.BorderlineColor = System.Drawing.Color.Transparent;
-            chartArea1.BackColor = System.Drawing.Color.Black;
-            chartArea1.BackSecondaryColor = System.Drawing.Color.Black;
-            chartArea1.Name = "ChartArea1";
-            this.Graph.ChartAreas.Add(chartArea1);
-            this.Graph.Location = new System.Drawing.Point(605, 56);
+            chartArea7.BackColor = System.Drawing.Color.Black;
+            chartArea7.BackSecondaryColor = System.Drawing.Color.Black;
+            chartArea7.Name = "ChartArea1";
+            this.Graph.ChartAreas.Add(chartArea7);
+            this.Graph.Location = new System.Drawing.Point(625, 56);
             this.Graph.Margin = new System.Windows.Forms.Padding(0);
             this.Graph.Name = "Graph";
             this.Graph.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.None;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Name = "GraphSignal";
-            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series2.Name = "GraphZero";
-            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Name = "GraphValue";
-            series3.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
-            this.Graph.Series.Add(series1);
-            this.Graph.Series.Add(series2);
-            this.Graph.Series.Add(series3);
-            this.Graph.Size = new System.Drawing.Size(648, 501);
+            series19.ChartArea = "ChartArea1";
+            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series19.Name = "GraphSignal";
+            series19.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series20.ChartArea = "ChartArea1";
+            series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series20.Name = "GraphZero";
+            series20.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            series21.ChartArea = "ChartArea1";
+            series21.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series21.Name = "GraphValue";
+            series21.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Double;
+            this.Graph.Series.Add(series19);
+            this.Graph.Series.Add(series20);
+            this.Graph.Series.Add(series21);
+            this.Graph.Size = new System.Drawing.Size(628, 446);
             this.Graph.TabIndex = 11;
             this.Graph.Text = "График";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(154, 31);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(57, 17);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "Пауза -";
+            // 
+            // DelayTextBox
+            // 
+            this.DelayTextBox.Location = new System.Drawing.Point(217, 28);
+            this.DelayTextBox.Mask = "00000";
+            this.DelayTextBox.Name = "DelayTextBox";
+            this.DelayTextBox.ResetOnSpace = false;
+            this.DelayTextBox.Size = new System.Drawing.Size(52, 22);
+            this.DelayTextBox.TabIndex = 15;
+            this.DelayTextBox.Text = "100";
+            this.DelayTextBox.ValidatingType = typeof(int);
+            // 
+            // IntervalTextBox
+            // 
+            this.IntervalTextBox.Location = new System.Drawing.Point(96, 28);
+            this.IntervalTextBox.Mask = "00000";
+            this.IntervalTextBox.Name = "IntervalTextBox";
+            this.IntervalTextBox.ResetOnSpace = false;
+            this.IntervalTextBox.Size = new System.Drawing.Size(52, 22);
+            this.IntervalTextBox.TabIndex = 15;
+            this.IntervalTextBox.Text = "1000";
+            this.IntervalTextBox.ValidatingType = typeof(int);
+            // 
+            // GetValueButton
+            // 
+            this.GetValueButton.Location = new System.Drawing.Point(287, 27);
+            this.GetValueButton.Name = "GetValueButton";
+            this.GetValueButton.Size = new System.Drawing.Size(156, 26);
+            this.GetValueButton.TabIndex = 16;
+            this.GetValueButton.Text = "Получить значение";
+            this.GetValueButton.UseVisualStyleBackColor = true;
+            this.GetValueButton.Click += new System.EventHandler(this.GetValueButton_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(449, 31);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(13, 17);
+            this.label3.TabIndex = 17;
+            this.label3.Text = "-";
+            // 
+            // ValueTextBox
+            // 
+            this.ValueTextBox.Enabled = false;
+            this.ValueTextBox.Location = new System.Drawing.Point(469, 27);
+            this.ValueTextBox.Name = "ValueTextBox";
+            this.ValueTextBox.Size = new System.Drawing.Size(100, 22);
+            this.ValueTextBox.TabIndex = 18;
             // 
             // FormMode_2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1262, 511);
+            this.Controls.Add(this.ValueTextBox);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.GetValueButton);
+            this.Controls.Add(this.IntervalTextBox);
+            this.Controls.Add(this.DelayTextBox);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.Graph);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.IntervalTextBox);
             this.Controls.Add(this.Table);
             this.Controls.Add(this.menuStrip);
             this.Name = "FormMode_2";
             this.Text = "FormMode_2";
             this.Activated += new System.EventHandler(this.FormMode_2_Activated);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMode_2_FormClosing);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Graph)).EndInit();
@@ -242,8 +307,13 @@
         private System.Windows.Forms.SaveFileDialog SaveFileDialog;
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox IntervalTextBox;
         private System.Windows.Forms.ToolStripMenuItem LazerToolStripMenuItem;
         private System.Windows.Forms.DataVisualization.Charting.Chart Graph;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.MaskedTextBox DelayTextBox;
+        private System.Windows.Forms.MaskedTextBox IntervalTextBox;
+        private System.Windows.Forms.Button GetValueButton;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox ValueTextBox;
     }
 }

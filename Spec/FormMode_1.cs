@@ -2,12 +2,15 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using unvell.ReoGrid.DataFormat;
 using System.IO.Ports;
+using unvell.ReoGrid;
 using static Spec.CommonSerialPort;
 namespace Spec
 {
+    [SuppressMessage("ReSharper", "LocalizableElement")]
     public partial class FormMode_1 : Form
     {       
         Stopwatch stopWatch = new Stopwatch();
@@ -29,6 +32,7 @@ namespace Spec
             Table.CurrentWorksheet.ColumnHeaders[1].Text = "Время в С";
             Table.CurrentWorksheet.ColumnHeaders[2].Text = "Значение";
             Table.CurrentWorksheet.ColumnHeaders[3].Text = "Усреднённое";
+            Table.CurrentWorksheet.SetSettings(WorksheetSettings.Edit_Readonly, true);
         }
         bool enable = false;
         double a = 0.5d;
@@ -67,6 +71,7 @@ namespace Spec
             timer.Stop();          
         }
         double buf = 0;
+      
         private void timer_Tick(object sender, EventArgs e)
         {
             RowIndex++;
@@ -177,7 +182,7 @@ namespace Spec
 
                 };
                 PortToolButton.DropDownItems.Add(PortNameToolButton);
-                PortNameToolButton.Click += new EventHandler(PortSetToolButton_Click);
+                PortNameToolButton.Click += PortSetToolButton_Click;
             }
             if (COMPORT.IsOpen)
             {
@@ -189,7 +194,7 @@ namespace Spec
 
                 };
                 PortToolButton.DropDownItems.Add(ClosePortToolButton);
-                ClosePortToolButton.Click += new EventHandler(ClosePortToolButton_Click);
+                ClosePortToolButton.Click += ClosePortToolButton_Click;
             }
         }
         private void PortToolButton_DropDownClosed(object sender, EventArgs e)
@@ -215,6 +220,17 @@ namespace Spec
             {
                 COMPORT.Write("X");
             }
+        }
+
+        private void FormMode_1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (MessageBox.Show("Вы уверены что хотите закрыть приложение, \nвсе несохранённые данные будут утеряны?",
+                    "Закрыть?", MessageBoxButtons.YesNo) == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+            else
+                e.Cancel = false;
         }
     }
 }

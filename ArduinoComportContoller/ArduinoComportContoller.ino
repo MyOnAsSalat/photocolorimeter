@@ -74,6 +74,9 @@ int Mode_2() //Режим по символу Y
         case 'D':
           pause = ReadNumber();    
           break;
+        case 'R':
+          Serial.println(analogRead(SENSORPIN));
+          break;  
         case 'S':
           Serial.println(82);//82 = 'R'
         default:

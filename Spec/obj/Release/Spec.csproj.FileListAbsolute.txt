@@ -1,0 +1,12 @@
+D:\Develop\@projects\Spec\Spec\bin\Release\Spec.exe.config
+D:\Develop\@projects\Spec\Spec\bin\Release\Spec.exe
+D:\Develop\@projects\Spec\Spec\bin\Release\Spec.pdb
+D:\Develop\@projects\Spec\Spec\bin\Release\unvell.ReoGrid.dll
+D:\Develop\@projects\Spec\Spec\bin\Release\unvell.ReoGrid.xml
+D:\Develop\@projects\Spec\Spec\obj\Release\Spec.FormMode_1.resources
+D:\Develop\@projects\Spec\Spec\obj\Release\Spec.FormMode_2.resources
+D:\Develop\@projects\Spec\Spec\obj\Release\Spec.Properties.Resources.resources
+D:\Develop\@projects\Spec\Spec\obj\Release\Spec.csproj.GenerateResource.Cache
+D:\Develop\@projects\Spec\Spec\obj\Release\Spec.csproj.CoreCompileInputs.cache
+D:\Develop\@projects\Spec\Spec\obj\Release\Spec.exe
+D:\Develop\@projects\Spec\Spec\obj\Release\Spec.pdb
